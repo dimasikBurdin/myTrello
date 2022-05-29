@@ -1,0 +1,24 @@
+.container {
+    position: relative;
+    width: 300px;
+    height: 150px;   
+    
+    /* top: 10px;
+    left: 100px; */
+}
+
+.container.green{    
+    background-color: chartreuse;    
+}
+
+.container.red{    
+    background-color: red;    
+}
+
+.container.blue{    
+    background-color: aqua;    
+}
+
+.container.yellow{    
+    background-color: gold;    
+}
