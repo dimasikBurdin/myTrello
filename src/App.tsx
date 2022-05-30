@@ -20,6 +20,7 @@ function App() {
 
   const activeCard = useRef<HTMLElement>();
   const [delta, setDelta] = useState<{left: number, top: number}>();
+  const newContainer = useRef<Array<string>>();
 
   function setActiveCard(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     let el = e.target as HTMLElement;
@@ -40,7 +41,21 @@ function App() {
 
   function onDrag(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     if(!activeCard.current) return;
-    console.log('drag')
+
+    activeCard.current.hidden = true;
+    let below = document.elementFromPoint(e.pageX, e.pageY);
+    // console.log(below);
+    activeCard.current.hidden = false;
+
+    if(activeCard.current.parentElement !== below) {
+      if(below)
+        below.appendChild(activeCard.current.parentElement);
+    }
+    
+    
+
+
+    // console.log('drag')
     let pX = e.pageX;
     let pY = e.pageY;
 
@@ -101,8 +116,24 @@ function App() {
     <div className='app-container' 
       onMouseMove={e => onDrag(e)}
       onMouseUp={() => endDrag()}
+      draggable='false'
       onDragStart={() => false}
     >
+      <div className='card-column' 
+        onDragStart={() => false}
+        draggable='false'        
+      >
+        {leftSideElements.map(color => {          
+          return <div key={color} className='back-card-container'>
+              <Container 
+                // key={color}
+                color={color} 
+                setActiveCard={setActiveCard}
+              />
+            </div>            
+        })}
+
+      </div>
       <div className='card-column' 
         onDragStart={() => false}
         draggable='false'
