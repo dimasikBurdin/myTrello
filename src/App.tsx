@@ -10,15 +10,15 @@ type CardInfo = {
   id: number
 }
 
+type SmplifiedCardInfo = {
+  color: string
+}
+
 function App() {
   const [leftSideElements, setLeftSideElements] = useState(['green', 'red', 'yellow', 'blue']);
   const [rightSideElements, setRightSideElements] = useState(Array<string>());
 
-  const [mouseMoveEvent, setMouseMoveEvent] = useState<React.MouseEvent<HTMLDivElement, MouseEvent>>();
-  const [isMouseUp, setIsMouseUp] = useState(true);
-
   const activeCard = useRef<HTMLElement>();
-  const cursorPositionEvent = useRef<React.MouseEvent<HTMLDivElement, MouseEvent>>();
   const [delta, setDelta] = useState<{left: number, top: number}>();
 
   function setActiveCard(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -99,21 +99,18 @@ function App() {
 
   return (
     <div className='app-container' 
-      // onMouseMove={e => setMouseMoveEvent(e)}
       onMouseMove={e => onDrag(e)}
-      // onMouseUp={() => {setIsMouseUp(true); setMouseMoveEvent(null); console.log('mouseUp in left side')}}
       onMouseUp={() => endDrag()}
-      onMouseDown={() => setIsMouseUp(false)} 
       onDragStart={() => false}
     >
-      <div className='left-side' 
+      <div className='card-column' 
         onDragStart={() => false}
         draggable='false'
       >
         {leftSideElements.map(color => {          
-          return <div key={color} className='left-side-card-container'>
+          return <div key={color} className='back-card-container'>
               <Container 
-                // key={color}  
+                // key={color}
                 color={color} 
                 setActiveCard={setActiveCard}
               />
@@ -121,21 +118,21 @@ function App() {
         })}
 
       </div>
-      <div className='right-side'
+      <div className='card-column' 
         onDragStart={() => false}
         draggable='false'
-        onMouseUp={e => console.log('mouseUp in right side')}
-        style={{zIndex:"1"}}
       >
-        {rightSideElements.map(color => {          
-          return <Container 
-              key={color} 
-              color={color} 
-              setActiveCard={setActiveCard}
-            />;
+        {leftSideElements.map(color => {          
+          return <div key={color} className='back-card-container'>
+              <Container 
+                // key={color}
+                color={color} 
+                setActiveCard={setActiveCard}
+              />
+            </div>            
         })}
+
       </div>
-      
     </div>
     
   );
