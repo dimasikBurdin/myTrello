@@ -33,6 +33,8 @@ function App() {
     current.style.position = 'absolute';
     current.style.zIndex = '1000';
 
+    current.style.transform = 'rotate(15deg)'
+
     current.style.left = (e.pageX - deltaLeft)  + 'px';
     current.style.top = (e.pageY - deltaTop) + 'px';
 
@@ -71,7 +73,7 @@ function App() {
     activeCard.current.style.top = '0';
     activeCard.current.style.left = '0';
     activeCard.current.style.zIndex = '0';
-
+    activeCard.current.style.transform = 'rotate(0)'
     activeCard.current = null;
   }
 
