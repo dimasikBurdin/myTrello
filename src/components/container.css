@@ -3,9 +3,18 @@
     width: 300px;
     height: 150px;
     
+    z-index: 0;
+    transform: translate(0);
+    
     
     /* top: 10px;
     left: 100px; */
+}
+
+.container.draggable {
+    position: absolute;
+    z-index: 1000;
+    transform: rotate(15deg);
 }
 
 .container.green{    

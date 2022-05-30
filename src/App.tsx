@@ -25,16 +25,13 @@ function App() {
   function setActiveCard(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     let el = e.target as HTMLElement;
     activeCard.current = el;
-    let current = activeCard.current;
 
+    let current = activeCard.current;
+    
     let deltaLeft = e.pageX - current.getBoundingClientRect().left;
     let deltaTop = e.pageY - current.getBoundingClientRect().top;
-
-    current.style.position = 'absolute';
-    current.style.zIndex = '1000';
-
-    current.style.transform = 'rotate(15deg)'
-
+    
+    current.classList.add('draggable');
     current.style.left = (e.pageX - deltaLeft)  + 'px';
     current.style.top = (e.pageY - deltaTop) + 'px';
 
@@ -69,11 +66,9 @@ function App() {
 
   function endDrag() {
     if(!activeCard.current) return;
-    activeCard.current.style.position = 'relative';
+    activeCard.current.classList.remove('draggable');
     activeCard.current.style.top = '0';
     activeCard.current.style.left = '0';
-    activeCard.current.style.zIndex = '0';
-    activeCard.current.style.transform = 'rotate(0)'
     activeCard.current = null;
   }
 
